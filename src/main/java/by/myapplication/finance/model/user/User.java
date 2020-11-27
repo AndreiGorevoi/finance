@@ -16,8 +16,10 @@ import java.util.List;
 public class User extends BaseModel {
     @Column
     private String login;
+
     @Column
     private String password;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name="user_role",
     joinColumns = @JoinColumn(name = "user_id"),

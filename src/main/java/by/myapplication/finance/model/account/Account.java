@@ -15,8 +15,10 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class Account extends BaseModel {
+
     @Column
     private String name;
+
     @Column
     private int balance;
 
