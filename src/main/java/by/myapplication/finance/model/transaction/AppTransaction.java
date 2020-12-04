@@ -1,6 +1,5 @@
 package by.myapplication.finance.model.transaction;
 
-import by.myapplication.finance.model.BaseModel;
 import by.myapplication.finance.model.account.Account;
 import by.myapplication.finance.model.groupeEx.GroupOfExpanse;
 import lombok.Data;
@@ -10,7 +9,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "transaction")
 @Data
-public class AppTransaction extends BaseModel {
+public class AppTransaction {
+
+    @Column(name = "transaction_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
 
     @Column
     private String description;
@@ -26,6 +31,6 @@ public class AppTransaction extends BaseModel {
     private Account account_id;
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "expense_group_id")
     private GroupOfExpanse group_id;
 }
