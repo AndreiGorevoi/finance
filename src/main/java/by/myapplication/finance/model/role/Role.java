@@ -17,9 +17,9 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     @Column
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private RoleName name;
 
     @ManyToMany(mappedBy = "roles",fetch = FetchType.LAZY)
     private List<User> users;
