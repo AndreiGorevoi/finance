@@ -3,10 +3,10 @@ package by.myapplication.finance.controller;
 import by.myapplication.finance.model.user.User;
 import by.myapplication.finance.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
+import java.util.Optional;
 
 @RestController
 public class StartController {
@@ -17,14 +17,14 @@ public class StartController {
         this.userService = userService;
     }
 
-
-    @PostMapping("/user")
-    public void addUser(@RequestBody User user){
-        userService.addUser(user);
+    @GetMapping(value = "/user")
+    public void getUser(@PathParam(value = "login") String login){
+        Optional<User> userByLogin = userService.findUserByLogin(login);
+        System.out.println(userByLogin.get().getLogin());
     }
 
-    @GetMapping("/test")
-    public String testMethod(){
-        return "test";
+    @GetMapping(value = "/test")
+    public void test(){
+        System.out.println("qwe");
     }
 }

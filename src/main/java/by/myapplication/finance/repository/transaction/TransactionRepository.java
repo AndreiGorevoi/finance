@@ -6,11 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<AppTransaction,Long> {
     @Query("from AppTransaction where id=?1")
-    AppTransaction getTransactionById(Long id);
+    Optional<AppTransaction> getTransactionById(Long transactionId);
 
     @Query("from AppTransaction a where a.account_id.id=?1")
     List<AppTransaction> getAppTransactionsByAccountId(Long accountId);

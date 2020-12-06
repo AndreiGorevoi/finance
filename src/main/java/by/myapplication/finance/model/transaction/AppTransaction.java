@@ -1,7 +1,7 @@
 package by.myapplication.finance.model.transaction;
 
 import by.myapplication.finance.model.account.Account;
-import by.myapplication.finance.model.groupeEx.GroupOfExpanse;
+import by.myapplication.finance.model.groupEx.GroupOfExpanse;
 import lombok.Data;
 
 import javax.persistence.*;

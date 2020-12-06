@@ -1,4 +1,4 @@
-package by.myapplication.finance.model.groupeEx;
+package by.myapplication.finance.model.groupEx;
 
 import by.myapplication.finance.model.account.Account;
 
