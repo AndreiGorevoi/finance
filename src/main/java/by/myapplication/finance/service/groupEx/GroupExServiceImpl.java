@@ -25,4 +25,23 @@ public class GroupExServiceImpl implements GroupExService {
     public Optional<GroupOfExpanse> findGroupOfExpanseByName(String groupName) {
         return groupOfExpenseRepository.getGroupOfExpanseByName(groupName);
     }
+
+    @Override
+    public boolean saveGroup(GroupOfExpanse newGroup) {
+        groupOfExpenseRepository.save(newGroup);
+        return true;
+    }
+
+    @Override
+    public boolean updateGroup(GroupOfExpanse updatedGroup) {
+        groupOfExpenseRepository.save(updatedGroup);
+        return true;
+    }
+
+    @Override
+    public boolean deleteGroupById(Long groupId) {
+//        TODO : throw exception if not found;
+        groupOfExpenseRepository.delete(groupOfExpenseRepository.getGroupOfExpanseById(groupId).get());
+        return true;
+    }
 }

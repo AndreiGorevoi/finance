@@ -1,10 +1,12 @@
 package by.myapplication.finance.model.groupEx;
 
 import by.myapplication.finance.model.account.Account;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "expense_group")
 public class GroupOfExpanse {
 

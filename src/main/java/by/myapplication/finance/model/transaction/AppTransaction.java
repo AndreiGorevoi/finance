@@ -16,7 +16,6 @@ public class AppTransaction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     @Column
     private String description;
 
@@ -25,10 +24,6 @@ public class AppTransaction {
 
     @Column
     private boolean type;
-
-    @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account_id;
 
     @ManyToOne
     @JoinColumn(name = "expense_group_id")

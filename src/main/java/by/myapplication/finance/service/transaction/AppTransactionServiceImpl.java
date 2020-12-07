@@ -26,8 +26,13 @@ public class AppTransactionServiceImpl implements AppTransactionService {
     }
 
     @Override
+    public List<AppTransaction> findTransactionsByGroupId(Long groupId) {
+        return transactionRepository.getAppTransactionsByGroupId(groupId);
+    }
+
+    @Override
     public List<AppTransaction> findTransactionsByAccountId(Long accountId) {
-        return transactionRepository.getAppTransactionsByAccountId(accountId);
+        return transactionRepository.getAppTransactionByAccountId(accountId);
     }
 
     @Override
@@ -39,6 +44,13 @@ public class AppTransactionServiceImpl implements AppTransactionService {
     @Override
     public boolean updateTransaction(AppTransaction updatedTransaction) {
         transactionRepository.save(updatedTransaction);
+        return true;
+    }
+
+    @Override
+    public boolean deleteTransactionById(Long transactionId) {
+        //    TODO: throw exception if transaction not found
+        transactionRepository.delete(transactionRepository.getTransactionById(transactionId).get());
         return true;
     }
 }

@@ -7,4 +7,7 @@ import java.util.Optional;
 public interface AccountService {
     Optional<Account> getAccountById(Long accountId);
     Optional<Account> getAccountByName(String accountName);
+    boolean addAccount(Account newAccount);
+    boolean deleteAccountById(Long id);
+    Account updateAccount(Account updatedAccount);
 }

@@ -1,5 +1,6 @@
 package by.myapplication.finance.service.user;
 
+import by.myapplication.finance.model.role.Role;
 import by.myapplication.finance.model.role.RoleName;
 import by.myapplication.finance.model.user.User;
 import by.myapplication.finance.repository.role.RoleRepository;
@@ -39,7 +40,9 @@ public class UserServiceImpl implements UserService {
     @SneakyThrows
     @Override
     public boolean addUser(User user) {
-        user.setRoles(Arrays.asList(roleRepository.getRoleByName(RoleName.USER).orElseThrow(()-> new RoleNotFoundException("ROle not found!"))));
+        Role role = roleRepository.getRoleByName(RoleName.USER).get();
+        role.getUsers().add(user);
+        user.getRoles().add(role);
         userRepository.save(user);
         return true;
     }

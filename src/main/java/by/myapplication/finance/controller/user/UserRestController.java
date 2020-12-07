@@ -5,6 +5,8 @@ import by.myapplication.finance.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 @RequestMapping(value = "/user")
 public class UserRestController {
@@ -27,8 +29,9 @@ public class UserRestController {
     public boolean deleteUserById(@PathVariable Long userId){
         return userService.deleteUserById(userId);
     }
-    @DeleteMapping(value = "/{login}")
-    public boolean deleteUserById(@PathVariable String login){
+
+    @DeleteMapping(value = "/")
+    public boolean deleteUserById(@PathParam("login") String login){
         return userService.deleteUserByLogin(login);
     }
 
