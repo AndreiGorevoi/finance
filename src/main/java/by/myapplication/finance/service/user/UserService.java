@@ -9,4 +9,6 @@ public interface UserService {
     Optional<User> findUserByLogin(String login);
     boolean addUser(User user);
     boolean updateUser(User user);
+    boolean deleteUserById(Long userId);
+    boolean deleteUserByLogin(String userName);
 }
