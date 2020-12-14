@@ -12,6 +12,7 @@ import javax.security.auth.login.AccountNotFoundException;
 import javax.transaction.Transactional;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 @Service
 @Transactional
@@ -57,6 +58,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account updateAccount(Account updatedAccount) {
        return accountRepository.save(updatedAccount);
+    }
+
+    @Override
+    public List<Account> getAllAccounts() {
+        return accountRepository.findAll();
     }
 
 

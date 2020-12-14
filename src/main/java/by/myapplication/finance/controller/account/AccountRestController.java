@@ -9,8 +9,11 @@ import by.myapplication.finance.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/account")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AccountRestController {
 
     private final AccountService accountService;
@@ -22,6 +25,9 @@ public class AccountRestController {
 
     @PostMapping
     public Account addAccount(@RequestBody Account newAccount){
+      if(newAccount.getName()==null){
+          newAccount.setName("default name");
+      }
         accountService.addAccount(newAccount);
         return newAccount;
     }
@@ -34,5 +40,10 @@ public class AccountRestController {
     @PutMapping
     public Account updateAccount(@RequestBody Account updatedAccount){
         return accountService.updateAccount(updatedAccount);
+    }
+
+    @GetMapping("/all")
+    public List<Account> getAccountsForUserId(){
+        return accountService.getAllAccounts();
     }
 }
