@@ -5,6 +5,7 @@ import by.myapplication.finance.model.groupEx.GroupOfExpanse;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "transaction")
@@ -23,7 +24,7 @@ public class AppTransaction {
     private int value;
 
     @Column
-    private boolean type;
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "expense_group_id")

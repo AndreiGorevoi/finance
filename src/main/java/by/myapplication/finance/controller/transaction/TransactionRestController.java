@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.List;
 
 @RestController
 @RequestMapping("/transaction")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TransactionRestController {
 
     private final AppTransactionService appTransactionService;
@@ -26,12 +28,10 @@ public class TransactionRestController {
         this.groupExService = groupExService;
     }
 
-    @PostMapping
+    @PostMapping("/{groupId}")
     public AppTransaction addTransaction(@RequestBody AppTransaction newTransaction,
-                                         @PathParam("groupId") Long groupId){
-        GroupOfExpanse groupOfExpanse = groupExService.findGroupOfExpanseById(groupId).get();
-        newTransaction.setGroup_id(groupOfExpanse);
-        appTransactionService.addTransaction(newTransaction);
+                                         @PathVariable Long groupId){
+        appTransactionService.addTransaction(newTransaction,groupId);
          return newTransaction;
     }
 
@@ -44,5 +44,15 @@ public class TransactionRestController {
     public AppTransaction updateTransaction(@RequestBody AppTransaction updatedTransaction){
          appTransactionService.updateTransaction(updatedTransaction);
          return updatedTransaction;
+    }
+
+    @GetMapping("/all")
+    public List<AppTransaction> getAllTransactionByAccountId(@RequestParam Long accountId){
+        return appTransactionService.findTransactionsByAccountId(accountId);
+    }
+
+    @GetMapping("/balance")
+    public int getBalanceByAccountId(@RequestParam Long accountId){
+        return appTransactionService.getBalanceForAccount(accountId);
     }
 }

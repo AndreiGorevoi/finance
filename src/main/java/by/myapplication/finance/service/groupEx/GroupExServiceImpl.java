@@ -5,6 +5,7 @@ import by.myapplication.finance.repository.groupeEx.GroupOfExpenseRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 @Service
 @Transactional
@@ -24,6 +25,11 @@ public class GroupExServiceImpl implements GroupExService {
     @Override
     public Optional<GroupOfExpanse> findGroupOfExpanseByName(String groupName) {
         return groupOfExpenseRepository.getGroupOfExpanseByName(groupName);
+    }
+
+    @Override
+    public List<GroupOfExpanse> findGroupOfExpanseByAccountId(Long accountId) {
+        return groupOfExpenseRepository.getGroupOfExpanseByAccountId(accountId);
     }
 
     @Override

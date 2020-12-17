@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -15,5 +16,8 @@ public interface GroupOfExpenseRepository extends JpaRepository<GroupOfExpanse,L
 
     @Query("from GroupOfExpanse where name=?1")
     Optional<GroupOfExpanse> getGroupOfExpanseByName(String groupName);
+
+    @Query("from GroupOfExpanse where account_id.id=?1")
+    List<GroupOfExpanse> getGroupOfExpanseByAccountId(Long accountId);
 
 }

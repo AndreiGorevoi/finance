@@ -21,9 +21,6 @@ public class Account {
     @Column
     private String name;
 
-    @Column
-    private int balance;
-
     @ManyToMany(mappedBy = "accounts",fetch = FetchType.LAZY)
     private List<User> users = new ArrayList<>();
 

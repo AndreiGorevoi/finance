@@ -9,8 +9,9 @@ public interface AppTransactionService {
     Optional<AppTransaction> findTransactionById(Long transactionId);
     List<AppTransaction> findTransactionsByGroupId(Long groupId);
     List<AppTransaction> findTransactionsByAccountId(Long accountId);
-    boolean addTransaction(AppTransaction transaction);
+    boolean addTransaction(AppTransaction transaction,Long groupId);
     boolean updateTransaction(AppTransaction updatedTransaction);
     boolean deleteTransactionById (Long transactionId);
+    int getBalanceForAccount(Long accountId);
 
 }

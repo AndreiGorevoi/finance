@@ -5,7 +5,6 @@ package by.myapplication.finance.controller.account;
 
 import by.myapplication.finance.model.account.Account;
 import by.myapplication.finance.service.account.AccountService;
-import by.myapplication.finance.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +23,11 @@ public class AccountRestController {
     }
 
     @PostMapping
-    public Account addAccount(@RequestBody Account newAccount){
+    public Account addAccount(@RequestBody Account newAccount, @RequestParam int startBalance){
       if(newAccount.getName()==null){
           newAccount.setName("default name");
       }
-        accountService.addAccount(newAccount);
+        accountService.addAccount(newAccount,startBalance);
         return newAccount;
     }
 
@@ -42,8 +41,13 @@ public class AccountRestController {
         return accountService.updateAccount(updatedAccount);
     }
 
-    @GetMapping("/all")
-    public List<Account> getAccountsForUserId(){
+    @GetMapping(value = "/all")
+    public List<Account> getAllAccount(){
         return accountService.getAllAccounts();
+    }
+
+    @GetMapping("/{accountId}")
+    public Account getAccountById(@PathVariable Long accountId){
+        return accountService.getAccountById(accountId).orElse(new Account());
     }
 }

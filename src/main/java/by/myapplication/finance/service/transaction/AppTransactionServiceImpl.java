@@ -1,11 +1,14 @@
 package by.myapplication.finance.service.transaction;
 
+import by.myapplication.finance.model.groupEx.GroupOfExpanse;
 import by.myapplication.finance.model.transaction.AppTransaction;
+import by.myapplication.finance.repository.groupeEx.GroupOfExpenseRepository;
 import by.myapplication.finance.repository.transaction.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,10 +17,12 @@ import java.util.Optional;
 public class AppTransactionServiceImpl implements AppTransactionService {
 
     private final TransactionRepository transactionRepository;
+    private final GroupOfExpenseRepository groupOfExpenseRepository;
 
     @Autowired
-    public AppTransactionServiceImpl(TransactionRepository transactionRepository) {
+    public AppTransactionServiceImpl(TransactionRepository transactionRepository, GroupOfExpenseRepository groupOfExpenseRepository) {
         this.transactionRepository = transactionRepository;
+        this.groupOfExpenseRepository = groupOfExpenseRepository;
     }
 
     @Override
@@ -36,7 +41,10 @@ public class AppTransactionServiceImpl implements AppTransactionService {
     }
 
     @Override
-    public boolean addTransaction(AppTransaction transaction) {
+    public boolean addTransaction(AppTransaction transaction,Long groupId) {
+        GroupOfExpanse groupOfExpanse = groupOfExpenseRepository.getGroupOfExpanseById(groupId).get();
+        transaction.setGroup_id(groupOfExpanse);
+        transaction.setDate(new Date(System.currentTimeMillis()));
         transactionRepository.save(transaction);
         return true;
     }
@@ -53,4 +61,11 @@ public class AppTransactionServiceImpl implements AppTransactionService {
         transactionRepository.delete(transactionRepository.getTransactionById(transactionId).get());
         return true;
     }
+
+    @Override
+    public int getBalanceForAccount(Long accountId) {
+        return transactionRepository.getAppTransactionByAccountId(accountId)
+                .stream().mapToInt(AppTransaction::getValue).sum();
+    }
+
 }

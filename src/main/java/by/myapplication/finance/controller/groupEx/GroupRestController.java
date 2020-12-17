@@ -10,10 +10,11 @@ import by.myapplication.finance.service.groupEx.GroupExService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/group")
+@CrossOrigin(origins = "http://localhost:3000")
 public class GroupRestController {
 
     private final GroupExService groupExService;
@@ -25,8 +26,8 @@ public class GroupRestController {
         this.accountService = accountService;
     }
 
-    @PostMapping
-    public GroupOfExpanse addGroup(@RequestBody GroupOfExpanse newGroup,@PathParam("accountId") Long accountId){
+    @PostMapping(value = {"/{accountId}"})
+    public GroupOfExpanse addGroup(@RequestBody GroupOfExpanse newGroup,@PathVariable Long accountId){
 //        TODO : throw ex
         Account account = accountService.getAccountById(accountId).get();
         newGroup.setAccount_id(account);
@@ -43,5 +44,10 @@ public class GroupRestController {
     public GroupOfExpanse updateGroup(@RequestBody GroupOfExpanse updatedGroup){
         groupExService.updateGroup(updatedGroup);
         return updatedGroup;
+    }
+
+    @GetMapping(value = "/{accountId}")
+    public List<GroupOfExpanse> getGroupsByAccountId(@PathVariable Long accountId){
+        return groupExService.findGroupOfExpanseByAccountId(accountId);
     }
 }
